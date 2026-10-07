@@ -7,6 +7,12 @@
 	"authors": [
 		"0xmthan"
 	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/chordbind",
+		"sources": "https://github.com/0xmthan/chordbind",
+		"issues": "https://github.com/0xmthan/chordbind/issues",
+		"email": "me@mthan.dev"
+	},
 	"license": "MIT",
 	"icon": "assets/chordbind/icon.png",
 	"environment": "client",

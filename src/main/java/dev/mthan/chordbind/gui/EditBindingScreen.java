@@ -1,5 +1,6 @@
 package dev.mthan.chordbind.gui;
 
+import dev.mthan.chordbind.CommandSender;
 import dev.mthan.chordbind.chord.Chord;
 import dev.mthan.chordbind.chord.ChordBinding;
 import dev.mthan.chordbind.chord.Conflicts;
@@ -184,7 +185,7 @@ public class EditBindingScreen extends Screen {
 			label = Component.literal(chord.displayName());
 		}
 		chordButton.setMessage(label);
-		saveButton.active = !recording && chord != null && !command.isBlank() && !isDuplicate();
+		saveButton.active = !recording && chord != null && CommandSender.isSendable(command) && !isDuplicate();
 	}
 
 	private boolean isDuplicate() {
@@ -207,8 +208,8 @@ public class EditBindingScreen extends Screen {
 					.withStyle(ChatFormatting.YELLOW));
 			}
 		}
-		if (!command.isBlank()) {
-			messages.add(Component.translatable(command.startsWith("/")
+		if (CommandSender.isSendable(command)) {
+			messages.add(Component.translatable(CommandSender.normalize(command).startsWith("/")
 				? "chordbind.screen.edit.sends.command"
 				: "chordbind.screen.edit.sends.chat").withStyle(ChatFormatting.GRAY));
 		}
@@ -216,11 +217,11 @@ public class EditBindingScreen extends Screen {
 	}
 
 	private void save() {
-		if (chord == null || command.isBlank() || isDuplicate()) {
+		if (chord == null || !CommandSender.isSendable(command) || isDuplicate()) {
 			return;
 		}
 		List<ChordBinding> updated = new ArrayList<>(config.bindings());
-		ChordBinding binding = new ChordBinding(chord, command.strip());
+		ChordBinding binding = new ChordBinding(chord, CommandSender.normalize(command));
 		if (index >= 0) {
 			updated.set(index, binding);
 		} else {
