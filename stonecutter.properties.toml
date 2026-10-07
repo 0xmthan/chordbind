@@ -1,7 +1,7 @@
 # Shared and per-Minecraft-version build settings.
 # See https://stonecutter.kikugie.dev/wiki/config/properties#centralized-properties
 mod.id = "chordbind"
-mod.version = "1.2.2"
+mod.version = "1.2.3"
 
 deps.fabric_loader = "0.19.5"
 
