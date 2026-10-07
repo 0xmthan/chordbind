@@ -1,6 +1,11 @@
 # Builds pull requests. Pushes to main are handled by release.yml.
 name: build
-on: [pull_request]
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+      - '.github/**'
 
 jobs:
   build:

@@ -5,6 +5,10 @@ name: release
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+      - '.github/**'
 
 concurrency:
   group: release
