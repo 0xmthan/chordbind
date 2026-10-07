@@ -2,8 +2,10 @@ package dev.mthan.chordbind;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import dev.mthan.chordbind.chord.ChordDetector;
+import dev.mthan.chordbind.chord.Keys;
 import dev.mthan.chordbind.config.ChordBindConfig;
 import dev.mthan.chordbind.gui.BindingListScreen;
+import dev.mthan.chordbind.gui.Screens;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
@@ -31,7 +33,7 @@ public class ChordBindClient implements ClientModInitializer {
 
 		KeyMapping openConfig = KeyMappingHelper.registerKeyMapping(new KeyMapping(
 			"key.chordbind.open_config",
-			InputConstants.Type.KEYSYM,
+			Keys.KEYBOARD,
 			InputConstants.UNKNOWN.getValue(),
 			KeyMapping.Category.register(Identifier.fromNamespaceAndPath(MOD_ID, "main"))
 		));
@@ -44,9 +46,9 @@ public class ChordBindClient implements ClientModInitializer {
 
 		ClientTickEvents.END_CLIENT_TICK.register(mc -> {
 			while (openConfig.consumeClick()) {
-				mc.gui.setScreen(new BindingListScreen(null, config));
+				Screens.open(mc, new BindingListScreen(null, config));
 			}
-			detector.tick(mc.player != null && mc.gui.screen() == null && mc.isWindowActive());
+			detector.tick(mc.player != null && Screens.current(mc) == null && mc.isWindowActive());
 		});
 	}
 }

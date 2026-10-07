@@ -1,6 +1,6 @@
-# On every push to main: build and publish a GitHub release.
-# If gradle.properties still has a version that was already released (its v<version>
-# tag exists), the patch number is bumped and committed back to main first.
+# On every push to main: build every Minecraft version and publish a GitHub release.
+# If stonecutter.properties.toml still has a version that was already released (its
+# v<version> tag exists), the patch number is bumped and committed back to main first.
 name: release
 on:
   push:
@@ -34,22 +34,22 @@ jobs:
       - name: Determine version
         id: version
         run: |
-          current=$(grep -E '^version=' gradle.properties | cut -d= -f2)
+          current=$(sed -nE 's/^mod\.version = "(.+)"$/\1/p' stonecutter.properties.toml)
           if git rev-parse -q --verify "refs/tags/v$current" >/dev/null; then
             IFS=. read -r major minor patch <<< "$current"
             next="$major.$minor.$((patch + 1))"
-            sed -i "s/^version=.*/version=$next/" gradle.properties
+            sed -i -E "s/^mod\.version = \".+\"$/mod.version = \"$next\"/" stonecutter.properties.toml
             echo "v$current already released, bumping to $next"
             echo "bumped=true" >> "$GITHUB_OUTPUT"
           else
             next="$current"
-            echo "Releasing v$next as set in gradle.properties"
+            echo "Releasing v$next as set in stonecutter.properties.toml"
             echo "bumped=false" >> "$GITHUB_OUTPUT"
           fi
           echo "version=$next" >> "$GITHUB_OUTPUT"
 
       - name: Build
-        run: chmod +x ./gradlew && ./gradlew build
+        run: chmod +x ./gradlew && ./gradlew build collectJars
 
       - name: Commit version bump
         if: steps.version.outputs.bumped == 'true'
@@ -70,4 +70,4 @@ jobs:
             --target "$(git rev-parse HEAD)" \
             --title "ChordBind $VERSION" \
             --generate-notes \
-            "build/libs/chordbind-$VERSION.jar"
+            build/libs/"$VERSION"/*.jar

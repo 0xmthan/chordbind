@@ -27,7 +27,7 @@ public final class Conflicts {
 		List<String> names = new ArrayList<>();
 		for (KeyMapping mapping : Minecraft.getInstance().options.keyMappings) {
 			InputConstants.Key bound = KeyMappingHelper.getBoundKeyOf(mapping);
-			if (bound.getType() != InputConstants.Type.KEYSYM) {
+			if (bound.getType() != Keys.KEYBOARD) {
 				continue;
 			}
 			int key = Keys.canonical(bound.getValue());

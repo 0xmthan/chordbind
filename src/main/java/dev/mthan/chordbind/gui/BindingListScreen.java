@@ -91,22 +91,22 @@ public class BindingListScreen extends Screen {
 
 	@Override
 	public void onClose() {
-		minecraft.gui.setScreen(parent);
+		Screens.open(minecraft, parent);
 	}
 
 	private void openEditor(int index) {
-		minecraft.gui.setScreen(new EditBindingScreen(this, config, index));
+		Screens.open(minecraft, new EditBindingScreen(this, config, index));
 	}
 
 	private void confirmDelete(int index) {
 		ChordBinding binding = config.bindings().get(index);
-		minecraft.gui.setScreen(new ConfirmScreen(confirmed -> {
+		Screens.open(minecraft, new ConfirmScreen(confirmed -> {
 			if (confirmed) {
 				List<ChordBinding> updated = new ArrayList<>(config.bindings());
 				updated.remove(index);
 				config.setBindings(updated);
 			}
-			minecraft.gui.setScreen(this);
+			Screens.open(minecraft, this);
 		}, Component.translatable("chordbind.screen.list.delete.title"),
 			Component.literal(binding.chord().displayName() + " → " + binding.command())));
 	}

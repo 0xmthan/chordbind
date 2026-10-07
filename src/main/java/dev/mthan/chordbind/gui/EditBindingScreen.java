@@ -233,6 +233,6 @@ public class EditBindingScreen extends Screen {
 
 	@Override
 	public void onClose() {
-		minecraft.gui.setScreen(parent);
+		Screens.open(minecraft, parent);
 	}
 }
