@@ -1,4 +1,4 @@
-package io.github.mthan.chordbind.chord;
+package dev.mthan.chordbind.chord;
 
 import java.util.Collection;
 import java.util.List;

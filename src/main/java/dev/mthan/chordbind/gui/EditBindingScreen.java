@@ -1,10 +1,10 @@
-package io.github.mthan.chordbind.gui;
+package dev.mthan.chordbind.gui;
 
-import io.github.mthan.chordbind.chord.Chord;
-import io.github.mthan.chordbind.chord.ChordBinding;
-import io.github.mthan.chordbind.chord.Conflicts;
-import io.github.mthan.chordbind.chord.Keys;
-import io.github.mthan.chordbind.config.ChordBindConfig;
+import dev.mthan.chordbind.chord.Chord;
+import dev.mthan.chordbind.chord.ChordBinding;
+import dev.mthan.chordbind.chord.Conflicts;
+import dev.mthan.chordbind.chord.Keys;
+import dev.mthan.chordbind.config.ChordBindConfig;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.Button;

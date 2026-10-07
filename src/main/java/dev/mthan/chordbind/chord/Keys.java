@@ -1,4 +1,4 @@
-package io.github.mthan.chordbind.chord;
+package dev.mthan.chordbind.chord;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;

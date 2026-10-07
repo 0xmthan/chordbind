@@ -1,8 +1,12 @@
-package io.github.mthan.chordbind.gui;
+package dev.mthan.chordbind.gui;
 
-import io.github.mthan.chordbind.chord.ChordBinding;
-import io.github.mthan.chordbind.chord.Conflicts;
-import io.github.mthan.chordbind.config.ChordBindConfig;
+import dev.mthan.chordbind.ChordBindClient;
+import dev.mthan.chordbind.chord.ChordBinding;
+import dev.mthan.chordbind.chord.Conflicts;
+import dev.mthan.chordbind.config.ChordBindConfig;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.metadata.Person;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -21,6 +25,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /** Lists all bindings with edit/delete buttons, plus an "Add" button. */
 public class BindingListScreen extends Screen {
@@ -28,6 +33,7 @@ public class BindingListScreen extends Screen {
 	private final ChordBindConfig config;
 	private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
 	private BindingList list;
+	private final Component credit = modCredit();
 
 	public BindingListScreen(@Nullable Screen parent, ChordBindConfig config) {
 		super(Component.translatable("chordbind.screen.list.title"));
@@ -68,6 +74,19 @@ public class BindingListScreen extends Screen {
 			graphics.centeredText(font, Component.translatable("chordbind.screen.list.empty"),
 				width / 2, layout.getHeaderHeight() + 20, 0xFFA0A0A0);
 		}
+		graphics.text(font, credit, 4, 4, 0xFF808080);
+	}
+
+	/** "ChordBind v1.2.1 by 0xmthan", read from fabric.mod.json. */
+	private static Component modCredit() {
+		return FabricLoader.getInstance().getModContainer(ChordBindClient.MOD_ID)
+			.map(ModContainer::getMetadata)
+			.map(meta -> {
+				String authors = meta.getAuthors().stream().map(Person::getName).collect(Collectors.joining(", "));
+				String text = meta.getName() + " v" + meta.getVersion().getFriendlyString();
+				return Component.literal(authors.isEmpty() ? text : text + " by " + authors);
+			})
+			.orElse(Component.literal("ChordBind"));
 	}
 
 	@Override

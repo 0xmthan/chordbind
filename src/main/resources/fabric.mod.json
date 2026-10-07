@@ -12,10 +12,10 @@
 	"environment": "client",
 	"entrypoints": {
 		"client": [
-			"io.github.mthan.chordbind.ChordBindClient"
+			"dev.mthan.chordbind.ChordBindClient"
 		],
 		"modmenu": [
-			"io.github.mthan.chordbind.compat.ModMenuIntegration"
+			"dev.mthan.chordbind.compat.ModMenuIntegration"
 		]
 	},
 	"depends": {

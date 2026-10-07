@@ -1,4 +1,4 @@
-package io.github.mthan.chordbind.chord;
+package dev.mthan.chordbind.chord;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;

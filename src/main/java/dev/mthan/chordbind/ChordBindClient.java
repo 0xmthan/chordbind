@@ -1,9 +1,9 @@
-package io.github.mthan.chordbind;
+package dev.mthan.chordbind;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import io.github.mthan.chordbind.chord.ChordDetector;
-import io.github.mthan.chordbind.config.ChordBindConfig;
-import io.github.mthan.chordbind.gui.BindingListScreen;
+import dev.mthan.chordbind.chord.ChordDetector;
+import dev.mthan.chordbind.config.ChordBindConfig;
+import dev.mthan.chordbind.gui.BindingListScreen;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;

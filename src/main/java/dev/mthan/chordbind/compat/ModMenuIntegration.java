@@ -1,9 +1,9 @@
-package io.github.mthan.chordbind.compat;
+package dev.mthan.chordbind.compat;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
-import io.github.mthan.chordbind.ChordBindClient;
-import io.github.mthan.chordbind.gui.BindingListScreen;
+import dev.mthan.chordbind.ChordBindClient;
+import dev.mthan.chordbind.gui.BindingListScreen;
 
 public class ModMenuIntegration implements ModMenuApi {
 	@Override

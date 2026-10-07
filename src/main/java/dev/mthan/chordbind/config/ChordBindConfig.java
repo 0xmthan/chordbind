@@ -1,12 +1,12 @@
-package io.github.mthan.chordbind.config;
+package dev.mthan.chordbind.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
-import io.github.mthan.chordbind.ChordBindClient;
-import io.github.mthan.chordbind.chord.Chord;
-import io.github.mthan.chordbind.chord.ChordBinding;
-import io.github.mthan.chordbind.chord.Keys;
+import dev.mthan.chordbind.ChordBindClient;
+import dev.mthan.chordbind.chord.Chord;
+import dev.mthan.chordbind.chord.ChordBinding;
+import dev.mthan.chordbind.chord.Keys;
 
 import java.io.IOException;
 import java.io.Reader;
