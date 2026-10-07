@@ -47,6 +47,14 @@ public class BindingListScreen extends Screen {
 		repositionElements();
 	}
 
+	/** Called each time the screen is shown, including when returning from the editor. */
+	@Override
+	public void added() {
+		if (list != null) {
+			list.reload();
+		}
+	}
+
 	@Override
 	protected void repositionElements() {
 		layout.arrangeElements();
@@ -87,10 +95,16 @@ public class BindingListScreen extends Screen {
 	private class BindingList extends ContainerObjectSelectionList<BindingList.Entry> {
 		BindingList(Minecraft minecraft) {
 			super(minecraft, BindingListScreen.this.width, layout.getContentHeight(), layout.getHeaderHeight(), 24);
+			reload();
+		}
+
+		void reload() {
 			List<ChordBinding> bindings = config.bindings();
+			List<Entry> entries = new ArrayList<>();
 			for (int i = 0; i < bindings.size(); i++) {
-				addEntry(new Entry(i, bindings.get(i), Conflicts.isDuplicate(bindings, bindings.get(i).chord(), i)));
+				entries.add(new Entry(i, bindings.get(i), Conflicts.isDuplicate(bindings, bindings.get(i).chord(), i)));
 			}
+			replaceEntries(entries);
 		}
 
 		@Override
