@@ -1,0 +1,24 @@
+{
+	"schemaVersion": 1,
+	"id": "chordexec",
+	"version": "${version}",
+	"name": "ChordExec",
+	"description": "Bind multi-key combinations (chords) to chat commands or messages. Client-side only.",
+	"authors": [
+		"Muhammed"
+	],
+	"license": "MIT",
+	"icon": "assets/chordexec/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"io.github.mthan.chordexec.ChordExecClient"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
