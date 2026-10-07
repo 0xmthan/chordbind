@@ -1,5 +1,6 @@
 plugins {
 	id("net.fabricmc.fabric-loom") version "1.18-SNAPSHOT"
+	id("me.modmuss50.mod-publish-plugin") version "2.2.1"
 }
 
 val modId = sc.properties.get<String>("mod.id")
@@ -19,6 +20,31 @@ dependencies {
 
 	// Optional: adds a config button in the mods list. Not bundled.
 	compileOnly("com.terraformersmc:modmenu:${sc.properties.get<String>("deps.modmenu")}")
+}
+
+publishMods {
+	val modrinthId = sc.properties.get<String>("publish.modrinth_id")
+	// CI passes an empty string when the secret is missing, so treat blank as unset
+	val modrinthToken = providers.environmentVariable("MODRINTH_TOKEN").orNull.orEmpty()
+
+	file = tasks.jar.flatMap { it.archiveFile }
+	version = project.version.toString()
+	displayName = "ChordBind $modVersion for ${sc.current.version}"
+	changelog = providers.environmentVariable("CHANGELOG").orElse("")
+	type = STABLE
+	modLoaders.add("fabric")
+	// Only uploads for real when both the project ID and the token are set (i.e. in CI)
+	dryRun = modrinthId.isBlank() || modrinthToken.isBlank()
+
+	modrinth {
+		accessToken = modrinthToken
+		projectId = modrinthId
+		minecraftVersions.addAll(
+			sc.properties.rawOrNull("mod", "mc_releases")?.asList().orEmpty().map { it.toString() }
+		)
+		requires("fabric-api")
+		optional("modmenu")
+	}
 }
 
 loom {

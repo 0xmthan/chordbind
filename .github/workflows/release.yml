@@ -1,6 +1,7 @@
-# On every push to main: build every Minecraft version and publish a GitHub release.
-# If stonecutter.properties.toml still has a version that was already released (its
-# v<version> tag exists), the patch number is bumped and committed back to main first.
+# On every push to main: build every Minecraft version, upload to Modrinth and publish a
+# GitHub release. If stonecutter.properties.toml still has a version that was already
+# released (its v<version> tag exists), the patch number is bumped and committed back first.
+# Modrinth goes first so a failed upload leaves nothing pushed and the run can be retried.
 name: release
 on:
   push:
@@ -51,6 +52,28 @@ jobs:
       - name: Build
         run: chmod +x ./gradlew && ./gradlew build collectJars
 
+      - name: Write changelog
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+          REPO: ${{ github.repository }}
+        run: |
+          previous=$(git describe --tags --abbrev=0 2>/dev/null || true)
+          {
+            git log --no-merges --format='- %s' ${previous:+"$previous"..}HEAD | grep -v '\[skip ci\]' || true
+            if [ -n "$previous" ]; then
+              echo
+              echo "**Full changelog:** https://github.com/$REPO/compare/$previous...v$VERSION"
+            fi
+          } > "$RUNNER_TEMP/changelog.md"
+          cat "$RUNNER_TEMP/changelog.md"
+
+      - name: Upload to Modrinth
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+        run: |
+          export CHANGELOG="$(cat "$RUNNER_TEMP/changelog.md")"
+          ./gradlew publishMods
+
       - name: Commit version bump
         if: steps.version.outputs.bumped == 'true'
         env:
@@ -69,5 +92,5 @@ jobs:
           gh release create "v$VERSION" \
             --target "$(git rev-parse HEAD)" \
             --title "ChordBind $VERSION" \
-            --generate-notes \
+            --notes-file "$RUNNER_TEMP/changelog.md" \
             build/libs/"$VERSION"/*.jar
