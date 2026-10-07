@@ -1,4 +1,4 @@
-package io.github.mthan.chordexec.chord;
+package io.github.mthan.chordbind.chord;
 
 import java.util.ArrayList;
 import java.util.HashSet;

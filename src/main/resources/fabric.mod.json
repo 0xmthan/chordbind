@@ -1,24 +1,30 @@
 {
 	"schemaVersion": 1,
-	"id": "chordexec",
+	"id": "chordbind",
 	"version": "${version}",
-	"name": "ChordExec",
+	"name": "ChordBind",
 	"description": "Bind multi-key combinations (chords) to chat commands or messages. Client-side only.",
 	"authors": [
-		"Muhammed"
+		"0xmthan"
 	],
 	"license": "MIT",
-	"icon": "assets/chordexec/icon.png",
+	"icon": "assets/chordbind/icon.png",
 	"environment": "client",
 	"entrypoints": {
 		"client": [
-			"io.github.mthan.chordexec.ChordExecClient"
+			"io.github.mthan.chordbind.ChordBindClient"
+		],
+		"modmenu": [
+			"io.github.mthan.chordbind.compat.ModMenuIntegration"
 		]
 	},
 	"depends": {
 		"fabricloader": ">=0.19.5",
-		"minecraft": "~26.3",
+		"minecraft": "~26.2",
 		"java": ">=25",
 		"fabric-api": "*"
+	},
+	"suggests": {
+		"modmenu": "*"
 	}
 }

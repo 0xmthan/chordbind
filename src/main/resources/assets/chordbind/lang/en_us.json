@@ -1,0 +1,25 @@
+{
+	"key.category.chordbind.main": "ChordBind",
+	"key.chordbind.open_config": "Open ChordBind bindings",
+
+	"chordbind.screen.list.title": "ChordBind Bindings",
+	"chordbind.screen.list.add": "Add Binding",
+	"chordbind.screen.list.edit": "Edit",
+	"chordbind.screen.list.delete": "Delete",
+	"chordbind.screen.list.delete.title": "Delete this binding?",
+	"chordbind.screen.list.empty": "No bindings yet. Click \"Add Binding\" to create one.",
+
+	"chordbind.screen.edit.title.add": "Add Binding",
+	"chordbind.screen.edit.title.edit": "Edit Binding",
+	"chordbind.screen.edit.chord": "Key combination",
+	"chordbind.screen.edit.record": "Click to record",
+	"chordbind.screen.edit.recording": "Hold keys…",
+	"chordbind.screen.edit.recording.help": "Hold all the keys of the combination, then release them. Press Escape or click to cancel.",
+	"chordbind.screen.edit.command": "Command or chat message",
+	"chordbind.screen.edit.command.hint": "/home or a chat message",
+	"chordbind.screen.edit.sends.command": "Sent as a command.",
+	"chordbind.screen.edit.sends.chat": "Sent as a chat message (doesn't start with /).",
+
+	"chordbind.conflict.duplicate": "Another binding already uses this key combination.",
+	"chordbind.conflict.keymapping": "Note: also triggers %s."
+}

@@ -1,4 +1,4 @@
-package io.github.mthan.chordexec;
+package io.github.mthan.chordbind;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
